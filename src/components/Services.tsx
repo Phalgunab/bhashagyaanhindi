@@ -2,6 +2,7 @@ import React from 'react';
 import { Check, Compass, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
+import { FourPillarsGraphic } from './graphics/FourPillarsGraphic';
 
 export const Services: React.FC = () => {
   const { content, language } = useLanguage();
@@ -33,8 +34,11 @@ export const Services: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* 4 Methodology Cards */}
-        <div className="methodology-grid">
+        {/* UI 2.0 Four Pillars Visual Matrix (Suno, Bolo, Padho, Likho) */}
+        <FourPillarsGraphic />
+
+        {/* 4 Methodology Step Cards */}
+        <div className="methodology-grid" style={{ marginTop: '40px' }}>
           {content.teachingMethodology.map((step, index) => (
             <motion.div
               key={step.id}
@@ -69,7 +73,7 @@ export const Services: React.FC = () => {
           transition={{ duration: 0.6 }}
           style={{
             marginTop: '44px',
-            backgroundColor: 'var(--color-warm-ivory)',
+            backgroundColor: 'var(--color-mocha-cream-light)',
             border: '1px solid var(--color-border)',
             borderRadius: 'var(--radius-xl)',
             padding: '28px 36px',
@@ -92,7 +96,7 @@ export const Services: React.FC = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: 'var(--color-editorial-blue)',
+                color: 'var(--color-deep-burgundy)',
                 flexShrink: 0,
                 boxShadow: 'var(--shadow-sm)',
               }}
@@ -100,7 +104,7 @@ export const Services: React.FC = () => {
               <Compass size={26} />
             </div>
             <div>
-              <strong style={{ display: 'block', color: 'var(--color-editorial-blue-deep)', fontSize: '1.0625rem', marginBottom: '3px' }}>
+              <strong style={{ display: 'block', color: 'var(--color-deep-burgundy-deep)', fontSize: '1.0625rem', marginBottom: '3px' }}>
                 {language === 'hi' ? 'पाठ्यक्रम-विशिष्ट अनुकूलन' : 'Curriculum-Specific Customization'}
               </strong>
               <span style={{ fontSize: '0.875rem', color: 'var(--color-text-light)', lineHeight: 1.5 }}>

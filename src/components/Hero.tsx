@@ -3,14 +3,17 @@ import { ArrowRight, CheckCircle2, Award, BookOpen, Clock, Sparkles } from 'luci
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { WhatsAppButton } from './WhatsAppButton';
+import { FloatingDevanagariParticles } from './graphics/FloatingDevanagariParticles';
+import { InteractiveBookGraphic } from './graphics/InteractiveBookGraphic';
 
 export const Hero: React.FC = () => {
   const { content } = useLanguage();
 
   return (
     <section id="hero" className="hero-section" aria-label="Introduction">
-      {/* Ambient background glow */}
+      {/* Ambient background glow and floating calligraphy particles */}
       <div className="hero-backdrop-glow" aria-hidden="true" />
+      <FloatingDevanagariParticles />
 
       <div className="container">
         <div className="hero-grid">
@@ -112,31 +115,25 @@ export const Hero: React.FC = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Column: Visual Tutor Card */}
+          {/* Right Column: Visual Interactive Book Artwork & Credentials Showcase */}
           <motion.div
             className="hero-visual"
-            initial={{ opacity: 0, scale: 0.94, y: 24 }}
+            initial={{ opacity: 0, scale: 0.92, y: 24 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ delay: 0.25, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}
           >
-            <div className="hero-card">
-              <div className="hero-card-header">
-                <div className="tutor-avatar-frame" aria-hidden="true">
-                  <span className="tutor-avatar-inner">भा</span>
-                  <motion.div
-                    className="tutor-verified-badge"
-                    title={content.tutor.certifiedBadge}
-                    animate={{ rotate: [0, 5, -5, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                  >
-                    <Award size={16} />
-                  </motion.div>
-                </div>
-                <h2 className="hero-card-name">{content.tutor.name}</h2>
+            {/* 3D Animated Open Book Graphic with Golden Quill */}
+            <InteractiveBookGraphic />
+
+            {/* Elegant Credentials Card */}
+            <div className="hero-card" style={{ maxWidth: '440px', marginTop: '-12px' }}>
+              <div className="hero-card-header" style={{ marginBottom: '16px' }}>
+                <h2 className="hero-card-name" style={{ fontSize: '1.45rem' }}>{content.tutor.name}</h2>
                 <p className="hero-card-role">{content.tutor.title}</p>
               </div>
 
-              <ul className="hero-card-points">
+              <ul className="hero-card-points" style={{ padding: '14px 0', gap: '10px' }}>
                 <li className="hero-card-point">
                   <CheckCircle2 size={16} />
                   <span>{content.tutor.cardPoints[0]}</span>

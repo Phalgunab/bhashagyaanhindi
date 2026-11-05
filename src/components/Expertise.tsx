@@ -1,24 +1,25 @@
 import React from 'react';
-import { CheckCircle, BookOpen } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
+import { CurriculumVisualPathway } from './graphics/CurriculumVisualPathway';
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.08,
     },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: 'easeOut' as const },
+    transition: { duration: 0.45, ease: 'easeOut' as const },
   },
 };
 
@@ -38,7 +39,7 @@ export const Expertise: React.FC = () => {
         >
           <span className="section-tag center-block">
             <span className="section-tag-dot" />
-            {language === 'hi' ? 'पाठ्यक्रम एवं विशेषज्ञता' : 'Curricula & Expertise'}
+            {language === 'hi' ? 'इंटरैक्टिव पाठ्यक्रम अन्वेषक' : 'Interactive Curriculum Pathway'}
           </span>
           <h2 className="section-title">
             {language === 'hi' ? 'समर्थित शिक्षण पाठ्यक्रम' : 'Teaching Curricula Supported'}
@@ -50,36 +51,8 @@ export const Expertise: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* 4 Curricula Cards */}
-        <motion.div
-          className="curricula-grid"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-        >
-          {content.curricula.map((curr) => (
-            <motion.div
-              key={curr.id}
-              className="curriculum-card"
-              variants={cardVariants}
-              whileHover={{ y: -6 }}
-            >
-              <span className="curriculum-tag">{curr.tagline}</span>
-              <h3 className="curriculum-name">{curr.name}</h3>
-              <p className="curriculum-desc">{curr.description}</p>
-              
-              <ul className="curriculum-features">
-                {curr.features.map((feature, idx) => (
-                  <li key={idx} className="curriculum-feature-item">
-                    <CheckCircle size={15} />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </motion.div>
+        {/* UI 2.0 Interactive Curriculum Pathway Showcase */}
+        <CurriculumVisualPathway />
 
         {/* Hindi Language Learning Areas Box */}
         <motion.div
@@ -94,7 +67,7 @@ export const Expertise: React.FC = () => {
               <span className="section-tag-dot" />
               {language === 'hi' ? 'समग्र भाषाई प्रवीणता' : 'Complete Language Mastery'}
             </span>
-            <h3 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.15rem)', color: 'var(--color-editorial-blue-deep)', marginBottom: '12px' }}>
+            <h3 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.15rem)', color: 'var(--color-deep-burgundy-deep)', marginBottom: '12px' }}>
               {language === 'hi' ? 'व्यापक हिंदी अध्ययन क्षेत्र' : 'Comprehensive Hindi Learning Areas'}
             </h3>
             <p style={{ color: 'var(--color-text-light)', fontSize: '0.95rem' }}>
