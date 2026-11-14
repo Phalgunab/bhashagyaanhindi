@@ -1,7 +1,6 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Globe } from 'lucide-react';
-import { useLanguage, Language } from '../context/LanguageContext';
+import { useLanguage } from '../context/LanguageContext';
 
 interface LanguageToggleProps {
   className?: string;
@@ -10,54 +9,34 @@ interface LanguageToggleProps {
 export const LanguageToggle: React.FC<LanguageToggleProps> = ({ className = '' }) => {
   const { language, setLanguage } = useLanguage();
 
-  const handleSelect = (lang: Language) => {
-    if (language !== lang) {
-      setLanguage(lang);
-    }
-  };
-
   return (
     <div
-      className={`lang-toggle-container ${className}`}
+      className={`lang-toggle-group ${className}`}
       role="group"
       aria-label="Language selection"
     >
-      <Globe size={15} className="lang-globe-icon" aria-hidden="true" />
-      <div className="lang-toggle-pills">
-        <button
-          type="button"
-          onClick={() => handleSelect('en')}
-          className={`lang-pill-btn ${language === 'en' ? 'active' : ''}`}
-          aria-pressed={language === 'en'}
-          aria-label="Switch to English"
-        >
-          {language === 'en' && (
-            <motion.div
-              layoutId="lang-active-pill"
-              className="lang-pill-indicator"
-              transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-            />
-          )}
-          <span className="lang-pill-text">EN</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => handleSelect('hi')}
-          className={`lang-pill-btn font-hindi ${language === 'hi' ? 'active' : ''}`}
-          aria-pressed={language === 'hi'}
-          aria-label="हिंदी भाषा में बदलें"
-        >
-          {language === 'hi' && (
-            <motion.div
-              layoutId="lang-active-pill"
-              className="lang-pill-indicator"
-              transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-            />
-          )}
-          <span className="lang-pill-text">हिन्दी</span>
-        </button>
-      </div>
+      <Globe size={15} className="lang-icon" aria-hidden="true" />
+      <button
+        type="button"
+        onClick={() => setLanguage('en')}
+        className={`lang-btn ${language === 'en' ? 'active' : ''}`}
+        aria-pressed={language === 'en'}
+        aria-label="Switch to English"
+      >
+        <span className="lang-label-full">English</span>
+        <span className="lang-label-short">EN</span>
+      </button>
+      <span className="lang-divider" aria-hidden="true">|</span>
+      <button
+        type="button"
+        onClick={() => setLanguage('hi')}
+        className={`lang-btn ${language === 'hi' ? 'active' : ''}`}
+        aria-pressed={language === 'hi'}
+        aria-label="हिंदी में बदलें (Switch to Hindi)"
+      >
+        <span className="lang-label-full">हिन्दी</span>
+        <span className="lang-label-short">हिं</span>
+      </button>
     </div>
   );
 };

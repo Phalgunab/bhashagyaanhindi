@@ -1,6 +1,5 @@
 import React from 'react';
 import { MessageCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { logWhatsAppClickToFirebase } from '../services/firebase';
 import { getWhatsAppUrl } from '../utils/whatsapp';
@@ -21,10 +20,9 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
   style,
 }) => {
   const { content, language } = useLanguage();
-  const effectiveMessage = customMessage || content.contactInfo.prefilledMessage;
+  const effectiveMessage = customMessage || content.contact.prefilledWhatsAppMessage;
   const url = getWhatsAppUrl(effectiveMessage);
-
-  const buttonText = label || content.brand.ctaWhatsApp;
+  const buttonText = label || content.hero.ctaConnect;
 
   const handleClick = () => {
     logWhatsAppClickToFirebase({
@@ -36,62 +34,36 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
 
   if (variant === 'floating') {
     return (
-      <motion.a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={handleClick}
-        aria-label={language === 'hi' ? 'आभा मूंदड़ा से व्हाट्सएप पर चैट करें' : 'Chat with Abha Mundra on WhatsApp'}
-        className="floating-whatsapp"
-        style={style}
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.6 }}
-        whileHover={{ scale: 1.06, y: -3 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <span
-          style={{
-            position: 'relative',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
+      <aside className="floating-whatsapp-container" aria-label="WhatsApp quick contact">
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={handleClick}
+          aria-label={language === 'hi' ? 'आभा मूंदड़ा से व्हाट्सएप पर चैट करें' : 'Connect with Abha Mundra on WhatsApp'}
+          className="floating-whatsapp-btn"
+          style={style}
         >
-          <MessageCircle size={22} strokeWidth={2.4} />
-          <motion.span
-            style={{
-              position: 'absolute',
-              top: -2,
-              right: -2,
-              width: 8,
-              height: 8,
-              borderRadius: '50%',
-              backgroundColor: '#FFFFFF',
-            }}
-            animate={{ scale: [1, 1.4, 1], opacity: [0.7, 1, 0.7] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </span>
-        <span>{language === 'hi' ? 'व्हाट्सएप चैट' : 'Chat on WhatsApp'}</span>
-      </motion.a>
+          <MessageCircle size={22} strokeWidth={2.4} aria-hidden="true" />
+          <span className="floating-whatsapp-label">WhatsApp</span>
+        </a>
+      </aside>
     );
   }
 
   return (
-    <motion.a
+    <a
       href={url}
       target="_blank"
       rel="noopener noreferrer"
       onClick={handleClick}
-      className={`btn btn-whatsapp ${className}`}
-      aria-label={`${buttonText} (opens WhatsApp)`}
+      className={`btn btn-secondary ${className}`}
+      aria-label={`${buttonText} (opens WhatsApp chat)`}
       style={style}
-      whileHover={{ scale: 1.02, y: -2 }}
-      whileTap={{ scale: 0.98 }}
     >
-      <MessageCircle size={19} strokeWidth={2.4} />
+      <MessageCircle size={18} strokeWidth={2.2} aria-hidden="true" />
       <span>{buttonText}</span>
-    </motion.a>
+    </a>
   );
 };
+

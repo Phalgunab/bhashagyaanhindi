@@ -53,9 +53,26 @@ export async function saveEnquiryToFirebase(data: EnquirySubmission): Promise<st
     userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
   };
 
+  const backupToLocalStorage = () => {
+    try {
+      const existing = JSON.parse(localStorage.getItem('bhasha_gyaan_saved_enquiries') || '[]');
+      existing.push({ ...payload, id: `local_${Date.now()}` });
+      localStorage.setItem('bhasha_gyaan_saved_enquiries', JSON.stringify(existing));
+    } catch {
+      // ignore local storage errors
+    }
+  };
+
   try {
     if (db) {
-      const docRef = await addDoc(collection(db, 'enquiries'), payload);
+      // Timeout after 2.5 seconds to ensure smooth user feedback even on slow/offline networks
+      const firestorePromise = addDoc(collection(db, 'enquiries'), payload);
+      const timeoutPromise = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Firestore request timed out')), 2500)
+      );
+
+      const docRef = await Promise.race([firestorePromise, timeoutPromise]);
+      backupToLocalStorage();
       return docRef.id;
     }
   } catch (err) {
@@ -63,14 +80,7 @@ export async function saveEnquiryToFirebase(data: EnquirySubmission): Promise<st
   }
 
   // Backup to localStorage
-  try {
-    const existing = JSON.parse(localStorage.getItem('bhasha_gyaan_saved_enquiries') || '[]');
-    existing.push({ ...payload, id: `local_${Date.now()}` });
-    localStorage.setItem('bhasha_gyaan_saved_enquiries', JSON.stringify(existing));
-  } catch {
-    // ignore local storage errors
-  }
-
+  backupToLocalStorage();
   return `offline_${Date.now()}`;
 }
 

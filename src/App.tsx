@@ -1,45 +1,36 @@
-import React, { useState } from 'react';
-import { LanguageProvider, useLanguage } from './context/LanguageContext';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { About } from './components/About';
-import { Expertise } from './components/Expertise';
-import { Services } from './components/Services';
-import { TeachingModes } from './components/TeachingModes';
-import { WhyChooseUs } from './components/WhyChooseUs';
-import { FAQ } from './components/FAQ';
-import { ContactForm } from './components/ContactForm';
-import { Footer } from './components/Footer';
-import { WhatsAppButton } from './components/WhatsAppButton';
+import React from "react";
+import { MotionConfig } from "motion/react";
+import { LanguageProvider, useLanguage } from "./context/LanguageContext";
+import { Navbar } from "./components/Navbar";
+import { HeroSection } from "./sections/HeroSection";
+import { AboutSection } from "./sections/AboutSection";
+import { ContactSection } from "./sections/ContactSection";
+import { Footer } from "./components/Footer";
+import { WhatsAppButton } from "./components/WhatsAppButton";
 
 const MainLayout: React.FC = () => {
-  const [selectedMode, setSelectedMode] = useState<'online' | 'offline'>('online');
   const { language } = useLanguage();
 
-  const handleSelectMode = (mode: 'online' | 'offline') => {
-    setSelectedMode(mode);
-  };
-
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       {/* Skip link for keyboard accessibility */}
       <a href="#main-content" className="skip-link">
-        {language === 'hi' ? 'मुख्य सामग्री पर जाएं' : 'Skip to main content'}
+        {language === "hi" ? "मुख्य सामग्री पर जाएं" : "Skip to main content"}
       </a>
 
-      {/* Top Navigation */}
+      {/* Primary Sticky Navigation */}
       <Navbar />
 
       {/* Main Content Area */}
       <main id="main-content">
-        <Hero />
-        <About />
-        <Expertise />
-        <Services />
-        <TeachingModes onSelectMode={handleSelectMode} />
-        <WhyChooseUs />
-        <FAQ />
-        <ContactForm selectedMode={selectedMode} />
+        {/* 1. Home / Hero */}
+        <HeroSection />
+
+        {/* 2. About & Expertise */}
+        <AboutSection />
+
+        {/* 3. Contact & Enquiry */}
+        <ContactSection />
       </main>
 
       {/* Footer */}
@@ -47,7 +38,7 @@ const MainLayout: React.FC = () => {
 
       {/* Floating WhatsApp Action Button */}
       <WhatsAppButton variant="floating" />
-    </>
+    </MotionConfig>
   );
 };
 

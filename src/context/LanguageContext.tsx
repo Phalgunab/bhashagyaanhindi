@@ -1,56 +1,45 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { websiteContentEn, websiteContentHi, WebsiteContentData } from '../data/websiteContent';
+import { WebsiteContent, websiteContentEn, websiteContentHi } from '../data/websiteContent';
 
 export type Language = 'en' | 'hi';
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  toggleLanguage: () => void;
-  content: WebsiteContentData;
+  content: WebsiteContent;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
-    try {
+    if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('bhasha_gyaan_lang');
-      if (saved === 'en' || saved === 'hi') {
+      if (saved === 'hi' || saved === 'en') {
         return saved;
       }
-    } catch {
-      // ignore localStorage errors
     }
     return 'en';
   });
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    try {
+    if (typeof window !== 'undefined') {
       localStorage.setItem('bhasha_gyaan_lang', lang);
-    } catch {
-      // ignore
+      document.documentElement.lang = lang;
     }
   };
 
-  const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'hi' : 'en');
-  };
-
   useEffect(() => {
-    document.documentElement.lang = language;
-    if (language === 'hi') {
-      document.body.classList.add('lang-hindi');
-    } else {
-      document.body.classList.remove('lang-hindi');
+    if (typeof window !== 'undefined') {
+      document.documentElement.lang = language;
     }
   }, [language]);
 
   const content = language === 'hi' ? websiteContentHi : websiteContentEn;
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage, content }}>
+    <LanguageContext.Provider value={{ language, setLanguage, content }}>
       {children}
     </LanguageContext.Provider>
   );
