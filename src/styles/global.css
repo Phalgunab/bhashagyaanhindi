@@ -512,104 +512,6 @@ p.desktop-text, div.desktop-text {
   border-bottom: 1px solid var(--color-border);
 }
 
-.about-editorial-split {
-  display: grid;
-  grid-template-columns: 0.75fr 1.25fr;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
-  align-items: stretch;
-  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
-}
-
-.about-stat-anchor-card {
-  background-color: var(--color-blue);
-  color: var(--color-white);
-  border-radius: var(--radius-card);
-  padding: clamp(1.75rem, 3.5vw, 2.75rem);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  box-shadow: var(--shadow-soft);
-  height: 100%;
-}
-
-.stat-anchor-number {
-  font-size: clamp(3.5rem, 7vw, 5.5rem);
-  line-height: 0.95;
-  color: var(--color-white);
-  margin-bottom: 0.5rem;
-}
-
-.stat-anchor-label {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--color-ivory);
-  opacity: 0.9;
-  margin-bottom: 1.5rem;
-}
-
-.stat-anchor-cert-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
-  padding-top: 1.25rem;
-}
-
-.stat-cert-pill {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-ivory);
-}
-
-.stat-cert-pill svg {
-  color: var(--color-coral);
-  flex-shrink: 0;
-}
-
-.about-bio-card {
-  background-color: var(--color-white);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-card);
-  padding: clamp(1.75rem, 3.5vw, 2.75rem);
-  box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.about-bio-text {
-  font-size: clamp(1.05rem, 1.4vw, 1.15rem);
-  color: var(--color-ink);
-  line-height: 1.75;
-  margin-bottom: 1.5rem;
-}
-
-.credentials-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 0.85rem;
-  list-style: none;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--color-border-subtle);
-}
-
-.credential-item {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--color-blue);
-}
-
-.credential-item svg {
-  color: var(--color-coral);
-  flex-shrink: 0;
-}
-
 .sub-heading {
   font-size: 1.6rem;
   color: var(--color-blue);
@@ -681,6 +583,12 @@ p.desktop-text, div.desktop-text {
   gap: 1rem;
 }
 
+.learning-areas-grid > * {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .learning-area-item {
   background-color: var(--color-white);
   border: 1px solid var(--color-border);
@@ -689,6 +597,8 @@ p.desktop-text, div.desktop-text {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  height: 100%;
+  flex: 1 1 auto;
   transition: border-color var(--transition-fast), transform var(--transition-fast);
 }
 
@@ -1292,37 +1202,6 @@ p.desktop-text, div.desktop-text {
   }
 
   /* About Section on Mobile */
-  .about-stat-anchor-card {
-    padding: 1.35rem;
-    border-radius: var(--radius-md);
-  }
-
-  .stat-anchor-number {
-    font-size: 3.25rem;
-  }
-
-  .about-bio-card {
-    padding: 1.25rem;
-    border-radius: var(--radius-md);
-  }
-
-  .about-bio-text {
-    font-size: 0.9375rem;
-    line-height: 1.55;
-    margin-bottom: 0.85rem;
-  }
-
-  .credentials-list {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-    padding-top: 0.75rem;
-  }
-
-  .credential-item {
-    font-size: 0.84375rem;
-    padding-right: 1.5rem;
-  }
-
   .sub-heading {
     font-size: 1.35rem;
     margin-bottom: 0.85rem;
@@ -1359,9 +1238,16 @@ p.desktop-text, div.desktop-text {
     gap: 0.5rem;
   }
 
+  .learning-areas-grid > * {
+    display: block;
+    height: auto;
+  }
+
   .learning-area-item {
     padding: 0.8rem 2rem 0.8rem 1rem;
     border-radius: var(--radius-sm);
+    height: auto;
+    flex: initial;
   }
 
   .learning-area-title {

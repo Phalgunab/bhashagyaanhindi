@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, GraduationCap, CheckCircle2, Award } from 'lucide-react';
+import { BookOpen, GraduationCap } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { Reveal } from '../components/Reveal';
 
@@ -21,47 +21,6 @@ export const AboutSection: React.FC = () => {
             </p>
           </div>
         </Reveal>
-
-        {/* Editorial Split Layout (Section 4.2) */}
-        <div className="about-editorial-split">
-          {/* Side 1: Typographic Anchor "20+" & Certification Badges */}
-          <Reveal delay={0.1}>
-            <div className="about-stat-anchor-card">
-              <div className="stat-anchor-number editorial-heading">20+</div>
-              <p className="stat-anchor-label">
-                {content.brand.experienceShort}
-              </p>
-              <div className="stat-anchor-cert-list">
-                <div className="stat-cert-pill">
-                  <Award size={15} aria-hidden="true" />
-                  <span>Cambridge IGCSE Certified</span>
-                </div>
-                <div className="stat-cert-pill">
-                  <Award size={15} aria-hidden="true" />
-                  <span>Cambridge A-Level Certified</span>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Side 2: Bio & Credentials */}
-          <Reveal delay={0.18}>
-            <div className="about-bio-card">
-              <p className="about-bio-text">
-                <span className="desktop-text">{about.tutorBio}</span>
-                <span className="mobile-text">{about.tutorBioMobile}</span>
-              </p>
-              <ul className="credentials-list" aria-label="Professional credentials and teaching experience">
-                {about.profileHighlights.map((highlight, idx) => (
-                  <li key={idx} className="credential-item">
-                    <CheckCircle2 size={18} aria-hidden="true" />
-                    <span>{highlight}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-        </div>
 
         {/* Curricula Expertise (Typographic Grid) */}
         <div className="curricula-wrapper">
